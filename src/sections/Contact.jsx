@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, ArrowUpRight, Check } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { Mail, ArrowUpRight, Check, AlertCircle } from "lucide-react";
 import SectionHeading from "../components/SectionHeading";
 import MagneticButton from "../components/MagneticButton";
 import { GithubIcon, LinkedinIcon } from "../components/BrandIcons";
@@ -13,8 +14,9 @@ const SOCIALS = [
 ];
 
 export default function Contact() {
-  const [status, setStatus] = useState("idle"); // idle | sending | sent
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleChange(e) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -22,11 +24,43 @@ export default function Contact() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (status !== "idle") return;
+    if (status === "sending") return;
+
     setStatus("sending");
-    // No backend wired up yet — simulate submission so the interaction
-    // still feels complete. Swap this for a real endpoint later.
-    setTimeout(() => setStatus("sent"), 1100);
+    setErrorMessage("");
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setStatus("error");
+      setErrorMessage(
+        "Contact form isn't configured yet — missing EmailJS environment variables."
+      );
+      return;
+    }
+
+    emailjs
+      .send(
+        serviceId,
+        templateId,
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        },
+        { publicKey }
+      )
+      .then(() => {
+        setStatus("sent");
+        setForm({ name: "", email: "", message: "" });
+      })
+      .catch((err) => {
+        console.error("EmailJS send failed:", err);
+        setStatus("error");
+        setErrorMessage("Something went wrong sending your message. Please try again.");
+      });
   }
 
   return (
@@ -87,7 +121,7 @@ export default function Contact() {
 
             <MagneticButton
               type="submit"
-              disabled={status !== "idle"}
+              disabled={status === "sending"}
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--color-ink)] px-6 py-3.5 text-sm font-medium text-[var(--color-void)] disabled:opacity-70"
             >
               {status === "idle" && (
@@ -106,7 +140,22 @@ export default function Contact() {
                   <Check size={16} /> Message sent
                 </motion.span>
               )}
+              {status === "error" && (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="inline-flex items-center gap-2"
+                >
+                  <AlertCircle size={16} /> Try again
+                </motion.span>
+              )}
             </MagneticButton>
+
+            {status === "error" && errorMessage && (
+              <p className="text-sm text-red-400" role="alert">
+                {errorMessage}
+              </p>
+            )}
           </form>
 
           <div className="md:col-span-2 flex flex-col justify-between gap-8">
