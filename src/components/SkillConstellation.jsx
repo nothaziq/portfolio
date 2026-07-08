@@ -3,15 +3,15 @@ import { motion } from "framer-motion";
 import { SKILL_NODES, SKILL_GROUPS } from "../constants/data";
 import { SKILL_ICONS } from "../constants/skillIcons";
 
-const WIDTH = 1300;
-const HEIGHT = 1150;
+const WIDTH = 1500;
+const HEIGHT = 1350;
 const CENTER = { x: WIDTH / 2, y: HEIGHT / 2 };
-const GROUP_RADIUS = 340;
+const GROUP_RADIUS = 400;
 const CORE_RADIUS = 24;
-const PADDING = 50; // keeps circles AND their text labels from colliding
+const PADDING = 56; // keeps circles AND their text labels from colliding
 
 function nodeRadius(weight) {
-  return 14 + weight * 13;
+  return 20 + weight * 20;
 }
 
 function resolveCollisions(nodes, fixedObstacles, iterations = 300) {
@@ -80,7 +80,7 @@ function buildLayout() {
   nodesByGroup.forEach(({ group, nodes }) => {
     const gPos = groupPositions[group];
     // more nodes in a cluster => wider local radius so they don't crowd
-    const localRadius = 95 + nodes.length * 27;
+    const localRadius = 110 + nodes.length * 34;
     nodes.forEach((node, i) => {
       const angle = (i / nodes.length) * Math.PI * 2 + Math.PI / 5;
       positioned.push({
@@ -107,7 +107,7 @@ function buildLayout() {
   const groupLabels = {};
   nodesByGroup.forEach(({ group, nodes }) => {
     const gPos = groupPositions[group];
-    const localRadius = 95 + nodes.length * 27;
+    const localRadius = 110 + nodes.length * 34;
     const labelY = Math.min(HEIGHT - 16, Math.max(18, gPos.y - localRadius - 30));
     groupLabels[group] = { x: gPos.x, y: labelY };
   });

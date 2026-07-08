@@ -129,7 +129,7 @@ export const SKILL_NODES = [
 export const SKILL_GROUPS = {
   language: { label: "Languages", color: "var(--color-primary-soft)" },
   frontend: { label: "Frontend", color: "var(--color-accent)" },
-  backend: { label: "Backend", color: "var(--color-secondary)" },
+  backend: { label: "Backend", color: "#22c55e" },
   ai: { label: "AI / ML", color: "#f472b6" },
   data: { label: "Database", color: "#facc15" },
   tools: { label: "Tools", color: "#94a3b8" },
