@@ -26,7 +26,6 @@ export const NAV_LINKS = [
   { label: "Work", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Journey", href: "#journey" },
-  { label: "Achievements", href: "#achievements" },
   { label: "Assistant", href: "#assistant" },
   { label: "Contact", href: "#contact" },
 ];
@@ -89,7 +88,7 @@ export const PROJECTS = [
       "Full repository layer with price history snapshots per product",
     ],
     github: "https://github.com/mudasarmajeed5/price-watch",
-    demo: "https://bachatkro.vercel.app",
+    demo: "https://bachatkro.vercel.app/login",
     image: bachatImg,
     imageFit: "contain",
     accent: "secondary",
@@ -123,7 +122,8 @@ export const SKILL_NODES = [
   { id: "git", label: "Git", group: "tools", weight: 0.9 },
   { id: "github", label: "GitHub", group: "tools", weight: 0.9 },
   { id: "vscode", label: "VS Code", group: "tools", weight: 0.9 },
-  { id: "streamlit", label: "Streamlit", group: "tools", weight: 0.6 },
+  { id: "jira", label: "Jira", group: "tools", weight: 0.65 },
+  { id: "pycharm", label: "PyCharm", group: "tools", weight: 0.7 },
 
   { id: "tmdb", label: "TMDB API", group: "backend", weight: 0.6 },
 ];

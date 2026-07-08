@@ -15,7 +15,8 @@ import {
   siMysql,
   siGit,
   siGithub,
-  siStreamlit,
+  siJira,
+  siPycharm,
   siFastapi,
   siNextdotjs,
   siThemoviedatabase,
@@ -53,7 +54,8 @@ export const SKILL_ICONS = {
   git: { type: "path", path: siGit.path, title: siGit.title },
   github: { type: "path", path: siGithub.path, title: siGithub.title },
   vscode: { type: "lucide", Icon: Code2, title: "VS Code" },
-  streamlit: { type: "path", path: siStreamlit.path, title: siStreamlit.title },
+  jira: { type: "path", path: siJira.path, title: siJira.title },
+  pycharm: { type: "path", path: siPycharm.path, title: siPycharm.title },
 
   tmdb: { type: "path", path: siThemoviedatabase.path, title: siThemoviedatabase.title },
 };
