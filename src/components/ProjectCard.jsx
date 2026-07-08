@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { GithubIcon } from "./BrandIcons";
+import ProjectThumbnail from "./ProjectThumbnail";
 
 const ACCENT_MAP = {
   primary: "var(--color-primary)",
@@ -51,10 +52,10 @@ export default function ProjectCard({ project, index, onOpen }) {
         onClick={() => onOpen(project)}
         data-cursor-hover
         style={{ rotateX: springRx, rotateY: springRy, transformStyle: "preserve-3d" }}
-        className="group relative cursor-pointer overflow-hidden rounded-3xl border border-[var(--color-line)] bg-[var(--color-surface)] p-7 sm:p-8 h-full"
+        className="group relative cursor-pointer overflow-hidden rounded-3xl border border-[var(--color-line)] bg-[var(--color-surface)] h-full flex flex-col"
       >
         <motion.div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
             background: useTransform(
               [glowX, glowY],
@@ -64,45 +65,49 @@ export default function ProjectCard({ project, index, onOpen }) {
           }}
         />
 
-        <div className="relative flex items-start justify-between">
-          <span className="font-mono text-xs text-[var(--color-ink-faint)]">{project.year}</span>
-          <span
-            className="h-2 w-2 rounded-full"
-            style={{ background: accent, boxShadow: `0 0 12px ${accent}` }}
-          />
-        </div>
+        <ProjectThumbnail project={project} className="aspect-[16/10] w-full shrink-0" />
 
-        <h3 className="relative mt-5 font-display text-2xl sm:text-[1.7rem] font-medium text-[var(--color-ink)] leading-tight">
-          {project.title}
-        </h3>
-        <p className="relative mt-3 text-sm text-[var(--color-ink-dim)] leading-relaxed">
-          {project.tagline}
-        </p>
-
-        <div className="relative mt-6 flex flex-wrap gap-2">
-          {project.stack.slice(0, 4).map((tech) => (
+        <div className="relative flex flex-1 flex-col p-7 sm:p-8">
+          <div className="flex items-start justify-between">
+            <span className="font-mono text-xs text-[var(--color-ink-faint)]">{project.year}</span>
             <span
-              key={tech}
-              className="rounded-full border border-[var(--color-line)] px-2.5 py-1 text-[11px] text-[var(--color-ink-faint)]"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.stack.length > 4 && (
-            <span className="rounded-full border border-[var(--color-line)] px-2.5 py-1 text-[11px] text-[var(--color-ink-faint)]">
-              +{project.stack.length - 4}
-            </span>
-          )}
-        </div>
+              className="h-2 w-2 rounded-full"
+              style={{ background: accent, boxShadow: `0 0 12px ${accent}` }}
+            />
+          </div>
 
-        <div className="relative mt-8 flex items-center justify-between">
-          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent)]">
-            View details
-            <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </span>
-          {project.github && (
-            <GithubIcon size={16} className="text-[var(--color-ink-faint)]" />
-          )}
+          <h3 className="mt-5 font-display text-2xl sm:text-[1.7rem] font-medium text-[var(--color-ink)] leading-tight">
+            {project.title}
+          </h3>
+          <p className="mt-3 text-sm text-[var(--color-ink-dim)] leading-relaxed">
+            {project.tagline}
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            {project.stack.slice(0, 4).map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-[var(--color-line)] px-2.5 py-1 text-[11px] text-[var(--color-ink-faint)]"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.stack.length > 4 && (
+              <span className="rounded-full border border-[var(--color-line)] px-2.5 py-1 text-[11px] text-[var(--color-ink-faint)]">
+                +{project.stack.length - 4}
+              </span>
+            )}
+          </div>
+
+          <div className="mt-8 flex items-center justify-between">
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent)]">
+              View details
+              <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
+            {project.github && (
+              <GithubIcon size={16} className="text-[var(--color-ink-faint)]" />
+            )}
+          </div>
         </div>
       </motion.div>
     </motion.div>

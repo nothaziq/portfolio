@@ -6,6 +6,7 @@ import Loader from "./components/Loader";
 import CustomCursor from "./components/CustomCursor";
 import ScrollProgress from "./components/ScrollProgress";
 import AmbientBackground from "./components/AmbientBackground";
+import CursorSpotlight from "./components/CursorSpotlight";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import DevConsoleEasterEgg from "./components/DevConsoleEasterEgg";
@@ -42,6 +43,7 @@ export default function App() {
         style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.6s ease" }}
       >
         <AmbientBackground />
+        <CursorSpotlight />
         <div className="noise-overlay" />
         <CustomCursor />
         <ScrollProgress />

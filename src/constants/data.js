@@ -3,6 +3,10 @@
 // skills here — the layout adapts automatically.
 // ============================================================
 
+import cinematchImg from "../assets/projects/cinematch.webp";
+import gamedeckImg from "../assets/projects/gamedeck.webp";
+import bachatImg from "../assets/projects/bachat.webp";
+
 export const PROFILE = {
   name: "Muhammad Haziq",
   role: "AI & Software Engineer in the making",
@@ -34,21 +38,40 @@ export const STATS = [
 
 export const PROJECTS = [
   {
-    id: "movie-recommender",
-    title: "Movie Recommendation System",
-    year: "2025",
-    tagline: "A recommendation engine that actually explains its taste.",
+    id: "cinematch",
+    title: "CineMatch",
+    year: "2026",
+    tagline: "Every film, one thread at a time.",
     description:
-      "An intelligent, content-based recommendation engine trained on the MovieLens dataset. Pairs a Scikit-Learn similarity model with an interactive Streamlit front end so the reasoning behind every suggestion is visible, not just the output.",
-    stack: ["Python", "Scikit-Learn", "Pandas", "NumPy", "Plotly", "Streamlit"],
+      "A production-grade movie recommendation system built on the MovieLens 32M dataset. A content-based ML pipeline (TF-IDF + cosine similarity via Scikit-Learn) powers an 11-endpoint FastAPI backend built with clean architecture, paired with a React 19 frontend and a custom design system, plus live TMDB integration for posters, cast, and metadata.",
+    stack: ["FastAPI", "React 19", "Python", "Scikit-Learn", "TMDB API", "Clean Architecture"],
     highlights: [
-      "Content-based filtering with cosine similarity",
-      "94% top-N recommendation accuracy",
-      "Interactive Plotly visualizations of taste clusters",
+      "Offline ML pipeline trained on MovieLens 32M (32 million ratings)",
+      "11-endpoint REST API with disk-cached, rate-limited TMDB integration",
+      "Custom React 19 design system, built as a real deployable product",
     ],
-    github: "https://github.com/nothaziq/Movie-Recommendation-System",
-    demo: "#",
+    github: "https://github.com/nothaziq/CineMatch",
+    demo: "https://cine-match.up.railway.app/",
+    image: cinematchImg,
     accent: "primary",
+  },
+  {
+    id: "gamedeck",
+    title: "GameDeck Explorer",
+    year: "2026",
+    tagline: "A personal space to browse and curate your game library.",
+    description:
+      "A game discovery and library dashboard with a cinematic, backdrop-driven interface — adjustable blur and overlay controls, a scrollable trending rail, and tag-based browsing built for the way people actually skim through a game catalog.",
+    stack: ["React", "Next.js", "Tailwind CSS", "REST APIs"],
+    highlights: [
+      "Live blur/overlay controls over full-bleed game backdrops",
+      "Tag-based browsing (Steam-style tags: Story Rich, Great Soundtrack, etc.)",
+      "Built and deployed end to end — live on Vercel",
+    ],
+    github: "https://github.com/mudasarmajeed5/gamedeck-explorer",
+    demo: "https://gamedeck-explorer.vercel.app/",
+    image: gamedeckImg,
+    accent: "accent",
   },
   {
     id: "bachat",
@@ -65,6 +88,8 @@ export const PROJECTS = [
     ],
     github: "https://github.com/mudasarmajeed5/price-watch",
     demo: "#",
+    image: bachatImg,
+    imageFit: "contain",
     accent: "secondary",
   },
 ];
@@ -139,6 +164,14 @@ export const JOURNEY = [
   },
   {
     year: "2026",
+    title: "Shipped CineMatch end to end",
+    org: "Personal project",
+    description:
+      "Rebuilt the movie recommender from the ground up as a production-grade product: a 32M-rating ML pipeline behind an 11-endpoint FastAPI backend, deployed with a custom React 19 frontend.",
+    type: "milestone",
+  },
+  {
+    year: "2026",
     title: "Software design, HCI & requirements engineering",
     org: "Air University, current semester",
     description:
@@ -176,7 +209,7 @@ export const AI_ASSISTANT_QA = [
   {
     q: "Tell me about his projects.",
     keywords: ["project", "projects", "built", "work", "portfolio"],
-    a: "Two flagship builds: a content-based Movie Recommendation System (94% accuracy, MovieLens dataset, Streamlit UI) and Bachat, a Next.js price tracker that watches Pakistani fashion retailers and alerts users by email/push when prices drop — built around Strategy, Factory, Singleton, and Repository patterns.",
+    a: "Three flagship builds: CineMatch, a production-grade movie recommender with an ML pipeline trained on 32 million MovieLens ratings and a full FastAPI + React 19 stack; GameDeck Explorer, a cinematic game-discovery dashboard with live backdrop controls; and Bachat, a Next.js price tracker for Pakistani retailers built around Strategy, Factory, Singleton, and Repository patterns.",
   },
   {
     q: "Why should I hire him?",

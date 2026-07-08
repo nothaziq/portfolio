@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ExternalLink, CheckCircle2 } from "lucide-react";
 import { GithubIcon } from "./BrandIcons";
+import ProjectThumbnail from "./ProjectThumbnail";
 import { useEffect } from "react";
 
 export default function ProjectModal({ project, onClose }) {
@@ -42,17 +43,20 @@ export default function ProjectModal({ project, onClose }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="glass relative z-10 max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-3xl p-8 sm:p-10"
+            className="glass relative z-10 max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-3xl"
           >
             <button
               onClick={onClose}
               data-cursor-hover
               aria-label="Close project details"
-              className="absolute right-6 top-6 rounded-full border border-[var(--color-line)] p-2 text-[var(--color-ink-dim)] hover:text-[var(--color-ink)] transition-colors"
+              className="absolute right-5 top-5 z-20 rounded-full border border-[var(--color-line)] bg-[var(--color-void)]/70 p-2 text-[var(--color-ink-dim)] backdrop-blur-sm hover:text-[var(--color-ink)] transition-colors"
             >
               <X size={16} />
             </button>
 
+            <ProjectThumbnail project={project} className="aspect-[16/9] w-full" />
+
+            <div className="p-8 sm:p-10">
             <span className="font-mono text-xs text-[var(--color-ink-faint)]">
               {project.year}
             </span>
@@ -109,7 +113,7 @@ export default function ProjectModal({ project, onClose }) {
                   View code
                 </a>
               )}
-              {project.demo && (
+              {project.demo && project.demo !== "#" && (
                 <a
                   href={project.demo}
                   target="_blank"
@@ -121,6 +125,7 @@ export default function ProjectModal({ project, onClose }) {
                   Live demo
                 </a>
               )}
+            </div>
             </div>
           </motion.div>
         </motion.div>

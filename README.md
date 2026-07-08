@@ -60,37 +60,6 @@ Add a node to `SKILL_NODES` in `src/constants/data.js` with an `id`, `label`,
 visitor's input against `keywords` and returns the best match, or a fallback
 if nothing scores above zero. No backend involved.
 
-### Contact form (EmailJS)
-
-The form in `src/sections/Contact.jsx` sends messages via
-[EmailJS](https://www.emailjs.com), so submissions land in your inbox with no
-backend server required. It needs three values, read from environment
-variables at build time.
-
-1. **Create an account** at [emailjs.com](https://www.emailjs.com) and verify
-   your email.
-2. **Add an email service** (Email Services → Add New Service — Gmail,
-   Outlook, or any SMTP account works). This gives you a **Service ID**.
-3. **Create a template** (Email Templates → Create New Template) with
-   `{{name}}`, `{{email}}`, and `{{message}}` variables in the body so the
-   form fields map through correctly. This gives you a **Template ID**.
-4. **Grab your Public Key** from Account → General.
-5. Copy `.env.example` to `.env.local` and fill in the three values:
-
-   ```bash
-   cp .env.example .env.local
-   ```
-
-   ```
-   VITE_EMAILJS_SERVICE_ID=service_xxxxxxx
-   VITE_EMAILJS_TEMPLATE_ID=template_xxxxxxx
-   VITE_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxx
-   ```
-
-`.env.local` is gitignored (matched by `*.local`) and never committed. Restart
-`npm run dev` after adding or changing these values, since Vite only reads
-`VITE_*` env vars at startup.
-
 ## Easter eggs
 
 - **Konami code** (`↑ ↑ ↓ ↓ ← → ← → b a`) anywhere on the page shows a toast.

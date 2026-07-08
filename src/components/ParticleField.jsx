@@ -19,6 +19,17 @@ export default function ParticleField({ density = 0.00009, className = "" }) {
 
     let width, height, particles, animationId;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    function handlePointerMove(e) {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    }
+    function handlePointerLeave() {
+      mouse.active = false;
+    }
 
     function resize() {
       width = canvas.offsetWidth;
@@ -46,6 +57,18 @@ export default function ParticleField({ density = 0.00009, className = "" }) {
         p.y += p.vy;
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        if (mouse.active) {
+          const dxm = p.x - mouse.x;
+          const dym = p.y - mouse.y;
+          const distM = Math.sqrt(dxm * dxm + dym * dym);
+          const REPEL_RADIUS = 110;
+          if (distM < REPEL_RADIUS && distM > 0.01) {
+            const force = (1 - distM / REPEL_RADIUS) * 0.6;
+            p.x += (dxm / distM) * force;
+            p.y += (dym / distM) * force;
+          }
+        }
 
         for (let j = i + 1; j < particles.length; j++) {
           const q = particles[j];
@@ -75,6 +98,8 @@ export default function ParticleField({ density = 0.00009, className = "" }) {
 
     resize();
     window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", handlePointerMove, { passive: true });
+    canvas.addEventListener("mouseleave", handlePointerLeave);
 
     if (!prefersReduced) {
       animationId = requestAnimationFrame(draw);
@@ -85,6 +110,8 @@ export default function ParticleField({ density = 0.00009, className = "" }) {
 
     return () => {
       window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handlePointerMove);
+      canvas.removeEventListener("mouseleave", handlePointerLeave);
       cancelAnimationFrame(animationId);
     };
   }, [density]);

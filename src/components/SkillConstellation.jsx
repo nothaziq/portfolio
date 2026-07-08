@@ -3,10 +3,61 @@ import { motion } from "framer-motion";
 import { SKILL_NODES, SKILL_GROUPS } from "../constants/data";
 import { SKILL_ICONS } from "../constants/skillIcons";
 
-const WIDTH = 760;
-const HEIGHT = 620;
+const WIDTH = 860;
+const HEIGHT = 760;
 const CENTER = { x: WIDTH / 2, y: HEIGHT / 2 };
-const GROUP_RADIUS = 210;
+const GROUP_RADIUS = 250;
+const CORE_RADIUS = 22;
+const PADDING = 30; // keeps circles AND their text labels from colliding
+
+function nodeRadius(weight) {
+  return 11 + weight * 9;
+}
+
+function resolveCollisions(nodes, fixedObstacles, iterations = 300) {
+  for (let iter = 0; iter < iterations; iter++) {
+    let moved = false;
+
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+
+      // push apart from other skill nodes
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        let dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+        const minDist = a.r + b.r + PADDING;
+        if (dist < minDist) {
+          moved = true;
+          const overlap = (minDist - dist) / 2;
+          const ux = dx / dist;
+          const uy = dy / dist;
+          a.x -= ux * overlap;
+          a.y -= uy * overlap;
+          b.x += ux * overlap;
+          b.y += uy * overlap;
+        }
+      }
+
+      // push away from fixed obstacles (the core node)
+      for (const obstacle of fixedObstacles) {
+        const dx = a.x - obstacle.x;
+        const dy = a.y - obstacle.y;
+        let dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+        const minDist = a.r + obstacle.r + PADDING;
+        if (dist < minDist) {
+          moved = true;
+          const overlap = minDist - dist;
+          a.x += (dx / dist) * overlap;
+          a.y += (dy / dist) * overlap;
+        }
+      }
+    }
+
+    if (!moved) break;
+  }
+}
 
 function buildLayout() {
   const groups = [...new Set(SKILL_NODES.map((n) => n.group))];
@@ -28,22 +79,44 @@ function buildLayout() {
   const positioned = [];
   nodesByGroup.forEach(({ group, nodes }) => {
     const gPos = groupPositions[group];
-    const localRadius = 96;
+    // more nodes in a cluster => wider local radius so they don't crowd
+    const localRadius = 60 + nodes.length * 16;
     nodes.forEach((node, i) => {
       const angle = (i / nodes.length) * Math.PI * 2 + Math.PI / 5;
       positioned.push({
         ...node,
+        r: nodeRadius(node.weight),
+        targetX: gPos.x + Math.cos(angle) * localRadius,
+        targetY: gPos.y + Math.sin(angle) * localRadius,
         x: gPos.x + Math.cos(angle) * localRadius,
         y: gPos.y + Math.sin(angle) * localRadius,
       });
     });
   });
 
-  return { groupPositions, positioned };
+  resolveCollisions(positioned, [{ x: CENTER.x, y: CENTER.y, r: CORE_RADIUS }]);
+
+  // clamp so nothing (including its label) escapes the canvas
+  const margin = 46;
+  positioned.forEach((n) => {
+    n.x = Math.min(WIDTH - margin, Math.max(margin, n.x));
+    n.y = Math.min(HEIGHT - margin, Math.max(margin, n.y));
+  });
+
+  // label sits just outside each cluster's own radius, clamped on-canvas
+  const groupLabels = {};
+  nodesByGroup.forEach(({ group, nodes }) => {
+    const gPos = groupPositions[group];
+    const localRadius = 60 + nodes.length * 16;
+    const labelY = Math.min(HEIGHT - 16, Math.max(18, gPos.y - localRadius - 30));
+    groupLabels[group] = { x: gPos.x, y: labelY };
+  });
+
+  return { groupPositions, positioned, groupLabels };
 }
 
 export default function SkillConstellation() {
-  const { groupPositions, positioned } = useMemo(buildLayout, []);
+  const { groupPositions, positioned, groupLabels } = useMemo(buildLayout, []);
   const [hovered, setHovered] = useState(null);
 
   return (
@@ -125,11 +198,11 @@ export default function SkillConstellation() {
         </text>
 
         {/* group labels */}
-        {Object.entries(groupPositions).map(([group, pos]) => (
+        {Object.entries(groupLabels).map(([group, pos]) => (
           <text
             key={`label-${group}`}
             x={pos.x}
-            y={pos.y - 100}
+            y={pos.y}
             textAnchor="middle"
             className="font-mono uppercase"
             fontSize="10"
@@ -144,7 +217,7 @@ export default function SkillConstellation() {
         {/* skill nodes */}
         {positioned.map((node, i) => {
           const isHovered = hovered === node.id;
-          const r = 11 + node.weight * 9;
+          const r = node.r;
           const icon = SKILL_ICONS[node.id];
           const iconSize = r * 1.15;
 
