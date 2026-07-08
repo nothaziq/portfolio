@@ -105,17 +105,29 @@ function buildLayout() {
 
   // label sits just outside each cluster's own radius, along the same
   // outward direction as the cluster itself (not always straight up),
-  // so it never drifts back over a neighbouring cluster.
+  // so it never drifts back over a neighbouring cluster. Uses each
+  // node's REAL post-collision position (not the idealized localRadius)
+  // so a node that got pushed further out during collision resolution
+  // never ends up sitting on top of the label.
   const groupLabels = {};
   nodesByGroup.forEach(({ group, nodes }) => {
     const gPos = groupPositions[group];
-    const localRadius = 110 + nodes.length * 34;
     const dx = gPos.x - CENTER.x;
     const dy = gPos.y - CENTER.y;
     const dist = Math.sqrt(dx * dx + dy * dy) || 1;
     const ux = dx / dist;
     const uy = dy / dist;
-    const offset = localRadius + 40;
+
+    // how far each of this group's actual nodes extends along the
+    // outward direction, including its own radius
+    const groupNodes = positioned.filter((n) => n.group === group);
+    const maxReach = Math.max(
+      ...groupNodes.map(
+        (n) => (n.x - gPos.x) * ux + (n.y - gPos.y) * uy + n.r
+      )
+    );
+
+    const offset = maxReach + 42; // clearance for the label text itself
     const marginX = 90;
     const marginY = 26;
     groupLabels[group] = {
