@@ -16,6 +16,9 @@ import {
   siGit,
   siGithub,
   siStreamlit,
+  siFastapi,
+  siNextdotjs,
+  siThemoviedatabase,
 } from "simple-icons";
 import { Database, Code2 } from "lucide-react";
 
@@ -36,6 +39,9 @@ export const SKILL_ICONS = {
 
   node: { type: "path", path: siNodedotjs.path, title: siNodedotjs.title },
   express: { type: "path", path: siExpress.path, title: siExpress.title },
+  fastapi: { type: "path", path: siFastapi.path, title: siFastapi.title },
+
+  nextjs: { type: "path", path: siNextdotjs.path, title: siNextdotjs.title },
 
   sklearn: { type: "path", path: siScikitlearn.path, title: siScikitlearn.title },
   pandas: { type: "path", path: siPandas.path, title: siPandas.title },
@@ -48,4 +54,6 @@ export const SKILL_ICONS = {
   github: { type: "path", path: siGithub.path, title: siGithub.title },
   vscode: { type: "lucide", Icon: Code2, title: "VS Code" },
   streamlit: { type: "path", path: siStreamlit.path, title: siStreamlit.title },
+
+  tmdb: { type: "path", path: siThemoviedatabase.path, title: siThemoviedatabase.title },
 };

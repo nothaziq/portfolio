@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { GraduationCap, Sparkles, Target } from "lucide-react";
 import SectionHeading from "../components/SectionHeading";
 import StatCard from "../components/StatCard";
+import TiltCard from "../components/TiltCard";
 import { PROFILE, STATS, LEARNING_NOW } from "../constants/data";
 import haziqPhoto from "../assets/profile/haziq.webp";
 
@@ -104,33 +105,36 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6 }}
-            className="glass md:col-span-3 rounded-3xl p-8"
+            className="md:col-span-3"
+            style={{ perspective: 1000 }}
           >
-            <div className="flex items-center gap-3 text-[var(--color-accent)]">
-              <GraduationCap size={20} />
-              <span className="font-mono text-xs uppercase tracking-[0.25em]">Education</span>
-            </div>
-            <h3 className="mt-4 font-display text-2xl text-[var(--color-ink)]">
-              {PROFILE.degree}
-            </h3>
-            <p className="mt-1 text-[var(--color-ink-dim)]">{PROFILE.university}</p>
-            <p className="mt-4 text-sm leading-relaxed text-[var(--color-ink-faint)]">
-              Coursework spans Software Requirements Engineering, Human-Computer
-              Interaction, Computer Organization &amp; Assembly Language, Software
-              Design &amp; Architecture, and Multivariable Calculus — with C++ OOP
-              running underneath most of it.
-            </p>
+            <TiltCard data-cursor-hover className="glass h-full rounded-3xl p-8">
+              <div className="flex items-center gap-3 text-[var(--color-accent)]">
+                <GraduationCap size={20} />
+                <span className="font-mono text-xs uppercase tracking-[0.25em]">Education</span>
+              </div>
+              <h3 className="mt-4 font-display text-2xl text-[var(--color-ink)]">
+                {PROFILE.degree}
+              </h3>
+              <p className="mt-1 text-[var(--color-ink-dim)]">{PROFILE.university}</p>
+              <p className="mt-4 text-sm leading-relaxed text-[var(--color-ink-faint)]">
+                Coursework spans Software Requirements Engineering, Human-Computer
+                Interaction, Computer Organization &amp; Assembly Language, Software
+                Design &amp; Architecture, and Multivariable Calculus — with C++ OOP
+                running underneath most of it.
+              </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {INTERESTS.map((interest) => (
-                <span
-                  key={interest}
-                  className="rounded-full border border-[var(--color-line)] px-3 py-1.5 text-xs text-[var(--color-ink-dim)]"
-                >
-                  {interest}
-                </span>
-              ))}
-            </div>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {INTERESTS.map((interest) => (
+                  <span
+                    key={interest}
+                    className="rounded-full border border-[var(--color-line)] px-3 py-1.5 text-xs text-[var(--color-ink-dim)]"
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </TiltCard>
           </motion.div>
 
           {/* Current focus card */}
@@ -139,30 +143,33 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="glass md:col-span-2 rounded-3xl p-8 flex flex-col"
+            className="md:col-span-2"
+            style={{ perspective: 1000 }}
           >
-            <div className="flex items-center gap-3 text-[var(--color-secondary)]">
-              <Target size={20} />
-              <span className="font-mono text-xs uppercase tracking-[0.25em]">Right now</span>
-            </div>
-            <h3 className="mt-4 font-display text-2xl text-[var(--color-ink)]">
-              Currently learning
-            </h3>
-            <ul className="mt-5 space-y-3 flex-1">
-              {LEARNING_NOW.map((item, i) => (
-                <li key={item} className="flex items-center gap-3 text-sm text-[var(--color-ink-dim)]">
-                  <span className="font-mono text-[var(--color-ink-faint)]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="h-px flex-1 bg-[var(--color-line)]" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex items-center gap-2 text-xs text-[var(--color-ink-faint)]">
-              <Sparkles size={14} className="text-[var(--color-accent)]" />
-              Goal: AI Engineer building products people actually use.
-            </div>
+            <TiltCard data-cursor-hover className="glass h-full rounded-3xl p-8 flex flex-col">
+              <div className="flex items-center gap-3 text-[var(--color-secondary)]">
+                <Target size={20} />
+                <span className="font-mono text-xs uppercase tracking-[0.25em]">Right now</span>
+              </div>
+              <h3 className="mt-4 font-display text-2xl text-[var(--color-ink)]">
+                Currently learning
+              </h3>
+              <ul className="mt-5 space-y-3 flex-1">
+                {LEARNING_NOW.map((item, i) => (
+                  <li key={item} className="flex items-center gap-3 text-sm text-[var(--color-ink-dim)]">
+                    <span className="font-mono text-[var(--color-ink-faint)]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="h-px flex-1 bg-[var(--color-line)]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 flex items-center gap-2 text-xs text-[var(--color-ink-faint)]">
+                <Sparkles size={14} className="text-[var(--color-accent)]" />
+                Goal: AI Engineer building products people actually use.
+              </div>
+            </TiltCard>
           </motion.div>
         </div>
 

@@ -3,6 +3,7 @@ import { X, ExternalLink, CheckCircle2 } from "lucide-react";
 import { GithubIcon } from "./BrandIcons";
 import ProjectThumbnail from "./ProjectThumbnail";
 import { useEffect } from "react";
+import { stopLenis, startLenis } from "../hooks/useLenis";
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
@@ -12,9 +13,11 @@ export default function ProjectModal({ project, onClose }) {
     }
     document.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
+    stopLenis();
     return () => {
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
+      startLenis();
     };
   }, [project, onClose]);
 

@@ -107,6 +107,9 @@ export const SKILL_NODES = [
 
   { id: "node", label: "Node.js", group: "backend", weight: 0.65 },
   { id: "express", label: "Express", group: "backend", weight: 0.6 },
+  { id: "fastapi", label: "FastAPI", group: "backend", weight: 0.85 },
+
+  { id: "nextjs", label: "Next.js", group: "frontend", weight: 0.75 },
 
   { id: "sklearn", label: "Scikit-Learn", group: "ai", weight: 0.85 },
   { id: "pandas", label: "Pandas", group: "ai", weight: 0.85 },
@@ -119,6 +122,8 @@ export const SKILL_NODES = [
   { id: "github", label: "GitHub", group: "tools", weight: 0.9 },
   { id: "vscode", label: "VS Code", group: "tools", weight: 0.9 },
   { id: "streamlit", label: "Streamlit", group: "tools", weight: 0.6 },
+
+  { id: "tmdb", label: "TMDB API", group: "apis", weight: 0.6 },
 ];
 
 export const SKILL_GROUPS = {
@@ -128,6 +133,7 @@ export const SKILL_GROUPS = {
   ai: { label: "AI / ML", color: "#f472b6" },
   data: { label: "Database", color: "#facc15" },
   tools: { label: "Tools", color: "#94a3b8" },
+  apis: { label: "APIs", color: "#2dd4bf" },
 };
 
 export const LEARNING_NOW = [

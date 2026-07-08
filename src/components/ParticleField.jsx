@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
  * used later in the Skills section. Deliberately subtle & performant
  * (no Three.js needed for this effect).
  */
-export default function ParticleField({ density = 0.00009, className = "" }) {
+export default function ParticleField({ density = 0.00022, className = "" }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -38,13 +38,13 @@ export default function ParticleField({ density = 0.00009, className = "" }) {
       canvas.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = Math.min(90, Math.floor(width * height * density));
+      const count = Math.min(220, Math.floor(width * height * density));
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.18,
         vy: (Math.random() - 0.5) * 0.18,
-        r: Math.random() * 1.4 + 0.6,
+        r: Math.random() * 1.3 + 0.5,
       }));
     }
 
@@ -62,9 +62,9 @@ export default function ParticleField({ density = 0.00009, className = "" }) {
           const dxm = p.x - mouse.x;
           const dym = p.y - mouse.y;
           const distM = Math.sqrt(dxm * dxm + dym * dym);
-          const REPEL_RADIUS = 110;
+          const REPEL_RADIUS = 150;
           if (distM < REPEL_RADIUS && distM > 0.01) {
-            const force = (1 - distM / REPEL_RADIUS) * 0.6;
+            const force = (1 - distM / REPEL_RADIUS) * 1.1;
             p.x += (dxm / distM) * force;
             p.y += (dym / distM) * force;
           }
