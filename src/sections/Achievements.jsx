@@ -3,8 +3,8 @@ import StatCard from "../components/StatCard";
 import { ACHIEVEMENTS } from "../constants/data";
 
 const MARQUEE_ITEMS = [
-  "Python", "C++", "React", "Scikit-Learn", "SFML", "Tailwind",
-  "Pandas", "Figma", "Jira", "MySQL", "Node.js", "Git",
+  "Python", "C++", "React", "Next.js", "FastAPI", "Scikit-Learn", "SFML", "Tailwind",
+  "Pandas", "Figma", "Jira", "MySQL", "Node.js", "Git", "TMDB API",
 ];
 
 export default function Achievements() {

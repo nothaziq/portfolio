@@ -42,11 +42,12 @@ export default function ProjectModal({ project, onClose }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-modal-title"
+            data-lenis-prevent
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="glass relative z-10 max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-3xl"
+            className="glass relative z-10 max-h-[85vh] w-full max-w-2xl overflow-y-auto overscroll-contain rounded-3xl"
           >
             <button
               onClick={onClose}
