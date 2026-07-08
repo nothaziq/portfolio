@@ -26,6 +26,7 @@ export const NAV_LINKS = [
   { label: "Work", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Journey", href: "#journey" },
+  { label: "Achievements", href: "#achievements" },
   { label: "Assistant", href: "#assistant" },
   { label: "Contact", href: "#contact" },
 ];
@@ -88,7 +89,7 @@ export const PROJECTS = [
       "Full repository layer with price history snapshots per product",
     ],
     github: "https://github.com/mudasarmajeed5/price-watch",
-    demo: "#",
+    demo: "https://bachatkro.vercel.app",
     image: bachatImg,
     imageFit: "contain",
     accent: "secondary",
