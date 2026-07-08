@@ -298,9 +298,9 @@ export default function SkillConstellation() {
 
               <text
                 x={node.x}
-                y={node.y + r + 16}
+                y={node.y + r + 20}
                 textAnchor="middle"
-                fontSize="10.5"
+                fontSize="14"
                 fontFamily="var(--font-mono)"
                 fill={isHovered ? "var(--color-ink)" : "var(--color-ink-faint)"}
               >
