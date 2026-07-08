@@ -14,6 +14,7 @@ import KonamiToast from "./components/KonamiToast";
 
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Experience from "./sections/Experience";
 import Projects from "./sections/Projects";
 import Skills from "./sections/Skills";
 import Journey from "./sections/Journey";
@@ -52,6 +53,7 @@ export default function App() {
         <main>
           <Hero />
           <About />
+          <Experience />
           <Projects />
           <Skills />
           <Journey />

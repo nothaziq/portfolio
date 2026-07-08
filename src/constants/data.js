@@ -23,10 +23,10 @@ export const PROFILE = {
 
 export const NAV_LINKS = [
   { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
   { label: "Work", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Journey", href: "#journey" },
-  { label: "Achievements", href: "#achievements" },
   { label: "Assistant", href: "#assistant" },
   { label: "Contact", href: "#contact" },
 ];
@@ -93,6 +93,31 @@ export const PROJECTS = [
     image: bachatImg,
     imageFit: "contain",
     accent: "secondary",
+  },
+];
+
+export const WORK_EXPERIENCE = [
+  {
+    id: "flyrank",
+    role: "AI/ML Engineer Intern",
+    company: "FlyRank AI",
+    location: "Remote",
+    period: "2026 — Present",
+    current: true,
+    description:
+      "Working on the AI/ML side of FlyRank's product — building and evaluating machine learning workflows, and helping ship features that put applied ML in front of real users rather than just a notebook.",
+    tags: ["Python", "Machine Learning", "Scikit-Learn", "Pandas"],
+  },
+  {
+    id: "safex",
+    role: "Full-Stack Developer Intern",
+    company: "Safex Solution",
+    location: "Remote",
+    period: "2026 — Present",
+    current: true,
+    description:
+      "Building full-stack features end to end — from React interfaces down to the API and data layer — inside a live product team, while picking up the habits of shipping code that other people depend on.",
+    tags: ["React", "Node.js", "REST APIs", "Git"],
   },
 ];
 
