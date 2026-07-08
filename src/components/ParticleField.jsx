@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
  * used later in the Skills section. Deliberately subtle & performant
  * (no Three.js needed for this effect).
  */
-export default function ParticleField({ density = 0.00022, className = "" }) {
+export default function ParticleField({ density = 0.00042, className = "" }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function ParticleField({ density = 0.00022, className = "" }) {
       canvas.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = Math.min(220, Math.floor(width * height * density));
+      const count = Math.min(340, Math.floor(width * height * density));
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,

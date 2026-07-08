@@ -56,12 +56,12 @@ function Portrait() {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ rotateX: springRx, rotateY: springRy, transformStyle: "preserve-3d" }}
-        className="h-60 w-60 sm:h-72 sm:w-72 overflow-hidden rounded-[2rem] border border-[var(--color-line)]"
+        className="aspect-[4/5] w-56 sm:w-72 overflow-hidden rounded-[2rem] border border-[var(--color-line)]"
       >
         <img
           src={haziqPhoto}
           alt="Portrait of Muhammad Haziq"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-top"
         />
       </motion.div>
     </motion.div>
