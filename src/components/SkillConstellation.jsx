@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { SKILL_NODES, SKILL_GROUPS } from "../constants/data";
 import { SKILL_ICONS } from "../constants/skillIcons";
 
-const WIDTH = 1500;
-const HEIGHT = 1350;
+const WIDTH = 1700;
+const HEIGHT = 1600;
 const CENTER = { x: WIDTH / 2, y: HEIGHT / 2 };
-const GROUP_RADIUS = 400;
-const CORE_RADIUS = 24;
+const GROUP_RADIUS = 480;
+const CORE_RADIUS = 54;
 const PADDING = 56; // keeps circles AND their text labels from colliding
 
 function nodeRadius(weight) {
@@ -103,13 +103,25 @@ function buildLayout() {
     n.y = Math.min(HEIGHT - margin, Math.max(margin, n.y));
   });
 
-  // label sits just outside each cluster's own radius, clamped on-canvas
+  // label sits just outside each cluster's own radius, along the same
+  // outward direction as the cluster itself (not always straight up),
+  // so it never drifts back over a neighbouring cluster.
   const groupLabels = {};
   nodesByGroup.forEach(({ group, nodes }) => {
     const gPos = groupPositions[group];
     const localRadius = 110 + nodes.length * 34;
-    const labelY = Math.min(HEIGHT - 16, Math.max(22, gPos.y - localRadius - 34));
-    groupLabels[group] = { x: gPos.x, y: labelY };
+    const dx = gPos.x - CENTER.x;
+    const dy = gPos.y - CENTER.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const ux = dx / dist;
+    const uy = dy / dist;
+    const offset = localRadius + 40;
+    const marginX = 90;
+    const marginY = 26;
+    groupLabels[group] = {
+      x: Math.min(WIDTH - marginX, Math.max(marginX, gPos.x + ux * offset)),
+      y: Math.min(HEIGHT - marginY, Math.max(marginY, gPos.y + uy * offset)),
+    };
   });
 
   return { groupPositions, positioned, groupLabels };
@@ -173,14 +185,14 @@ export default function SkillConstellation() {
         })}
 
         {/* core node */}
-        <circle cx={CENTER.x} cy={CENTER.y} r={46} fill="url(#coreGlow)" opacity={0.5} />
+        <circle cx={CENTER.x} cy={CENTER.y} r={100} fill="url(#coreGlow)" opacity={0.5} />
         <motion.circle
           cx={CENTER.x}
           cy={CENTER.y}
-          r={22}
+          r={54}
           fill="var(--color-surface-2)"
           stroke="var(--color-accent)"
-          strokeWidth={1.5}
+          strokeWidth={2}
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true }}
@@ -188,10 +200,10 @@ export default function SkillConstellation() {
         />
         <text
           x={CENTER.x}
-          y={CENTER.y + 4}
+          y={CENTER.y + 7}
           textAnchor="middle"
-          className="font-mono"
-          fontSize="10"
+          className="font-mono font-semibold"
+          fontSize="18"
           fill="var(--color-ink)"
         >
           HS
