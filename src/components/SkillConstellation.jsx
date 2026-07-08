@@ -108,7 +108,7 @@ function buildLayout() {
   nodesByGroup.forEach(({ group, nodes }) => {
     const gPos = groupPositions[group];
     const localRadius = 110 + nodes.length * 34;
-    const labelY = Math.min(HEIGHT - 16, Math.max(18, gPos.y - localRadius - 30));
+    const labelY = Math.min(HEIGHT - 16, Math.max(22, gPos.y - localRadius - 34));
     groupLabels[group] = { x: gPos.x, y: labelY };
   });
 
@@ -204,11 +204,11 @@ export default function SkillConstellation() {
             x={pos.x}
             y={pos.y}
             textAnchor="middle"
-            className="font-mono uppercase"
-            fontSize="10"
+            className="font-mono uppercase font-semibold"
+            fontSize="16"
             letterSpacing="2"
             fill={SKILL_GROUPS[group].color}
-            opacity={0.8}
+            opacity={0.9}
           >
             {SKILL_GROUPS[group].label}
           </text>
