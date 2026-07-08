@@ -6,6 +6,8 @@
 import cinematchImg from "../assets/projects/cinematch.webp";
 import gamedeckImg from "../assets/projects/gamedeck.webp";
 import bachatImg from "../assets/projects/bachat.webp";
+import flyrankLogo from "../assets/companies/flyrank.png";
+import safexLogo from "../assets/companies/safex.png";
 
 export const PROFILE = {
   name: "Muhammad Haziq",
@@ -101,6 +103,7 @@ export const WORK_EXPERIENCE = [
     id: "flyrank",
     role: "AI/ML Engineer Intern",
     company: "FlyRank AI",
+    logo: flyrankLogo,
     location: "Remote",
     period: "2026 — Present",
     current: true,
@@ -112,6 +115,7 @@ export const WORK_EXPERIENCE = [
     id: "safex",
     role: "Full-Stack Developer Intern",
     company: "Safex Solution",
+    logo: safexLogo,
     location: "Remote",
     period: "2026 — Present",
     current: true,

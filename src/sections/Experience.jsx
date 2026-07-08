@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Briefcase, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import SectionHeading from "../components/SectionHeading";
 import { WORK_EXPERIENCE } from "../constants/data";
 
@@ -35,8 +35,12 @@ function ExperienceCard({ job, index }) {
           <div className="flex-1">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-surface-2)] text-[var(--color-accent)]">
-                  <Briefcase size={17} />
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white p-2">
+                  <img
+                    src={job.logo}
+                    alt={`${job.company} logo`}
+                    className="h-full w-full object-contain"
+                  />
                 </span>
                 <div>
                   <h3 className="font-display text-lg sm:text-xl text-[var(--color-ink)]">
