@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useLenis } from "./hooks/useLenis";
 import { useKonamiCode } from "./hooks/useKonamiCode";
 
@@ -65,6 +66,7 @@ export default function App() {
         <Footer />
         <KonamiToast show={konamiActive} />
       </div>
+      <SpeedInsights />
     </>
   );
 }
